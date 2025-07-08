@@ -12,21 +12,21 @@ _**Unauthenticated Scan:**_ A scan performed without credentials, assessing the 
 ## Skills & Technologies Applied
 
 * **Vulnerability Management**
-    * **Tenable.io:** Configuring enterprise scans (authenticated & unauthenticated), reporting, and analysis.
-    * **Risk Prioritization:** Triaging findings based on technical severity and business context.
+  * **Tenable.io:** Configuring enterprise scans (authenticated & unauthenticated), reporting, and analysis.
+  * **Risk Prioritization:** Triaging findings based on technical severity and business context.
 
 * **Automation & Scripting**
-    * **PowerShell:** Scripting automated remediation for system hardening and configuration changes.
-    * **BASH:** Scripting for Linux environment configuration and remediation.
+  * **PowerShell:** Scripting automated remediation for system hardening and configuration changes.
+  * **BASH:** Scripting for Linux environment configuration and remediation.
 
 * **Cloud & Infrastructure**
-    * **Microsoft Azure:** Provisioning and managing Windows & Linux VMs as scan targets.
-    * **Network Security:** Understanding of network protocols (TLS, SMB) and cipher suites.
+  * **Microsoft Azure:** Provisioning and managing Windows & Linux VMs as scan targets.
+  * **Network Security:** Understanding of network protocols (TLS, SMB) and cipher suites.
 
 * **IT Governance & Process**
-    * **Policy Development:** Drafting and finalizing an enterprise-wide security policy.
-    * **Change Management:** Presenting technical changes and rollback plans to a Change Advisory Board (CAB).
-    * **Stakeholder Communication:** Securing buy-in and planning remediation with IT operations teams.
+  * **Policy Development:** Drafting and finalizing an enterprise-wide security policy.
+  * **Change Management:** Presenting technical changes and rollback plans to a Change Advisory Board (CAB).
+  * **Stakeholder Communication:** Securing buy-in and planning remediation with IT operations teams.
 ---
 
 ### Methodology
@@ -44,6 +44,22 @@ To conduct this comparison, a controlled test environment was established using 
     2.  An **authenticated** scan targeting the Windows 10 VM (using local administrator credentials).
     3.  An **unauthenticated** scan targeting the Ubuntu VM.
     4.  An **authenticated** scan targeting the Ubuntu VM (using SSH key-based credentials).
+
+* **System Preparation for Authentication:** To ensure the scanner could successfully log in, specific configurations were enabled on the target systems prior to the authenticated scans.
+
+    * **On Windows**, remote administrative UAC restrictions were disabled using the following PowerShell command:
+        ```powershell
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "LocalAccountTokenFilterPolicy" -Value 1 -Type DWord -Force
+        ```
+
+    * **On Linux**, the root user was enabled for SSH login for the scan using these BASH commands:
+        ```bash
+        # Set a password for the root user
+        sudo passwd root
+
+        # Permit root login via SSH and restart the SSH service
+        sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+        sudo systemctl restart sshd
   
 ---
 
@@ -68,13 +84,25 @@ The authenticated scan on the Windows 10 machine was crucial, discovering **2 Hi
 #### Linux Analysis
 Similarly, while no high-severity vulnerabilities were found on the Linux machine, the authenticated scan provided more than **double the visibility** (57 findings vs. 21). It successfully enumerated installed software packages and identified local security misconfigurations, such as user accounts with non-expiring passwords, which are essential for security hardening.
 
-#### Visual Evidence
+---
 
-*View the full reports: [Authenticated Scan Report](https://drive.google.com/file/d/1GyB9r4LvCUBFlevMH9nsPWb3DgXb6IVt/view?usp=sharing) | [Unauthenticated Scan Report](https://drive.google.com/file/d/1NLzpGQK0H7FJZQLtWCoNuWQJFUWpQUEj/view?usp=sharing)*
+#### Windows Scans
+*Side-by-side Scan Comparison - Left Unauthenticated | Right Authenticated*
+![Windows Scan Comparison](https://github.com/user-attachments/assets/06af40ed-4ccb-47a3-bada-2c2d450aa0b0)
+*View the full reports: [Unauthenticated Scan Report](https://drive.google.com/file/d/1NLzpGQK0H7FJZQLtWCoNuWQJFUWpQUEj/view?usp=sharing) | [Authenticated Scan Report](https://drive.google.com/file/d/1GyB9r4LvCUBFlevMH9nsPWb3DgXb6IVt/view?usp=sharing)*
 
-*A side-by-side comparison of Windows scan results.*
-![image](https://github.com/user-attachments/assets/47c3afaa-230a-470d-8976-cbe2b414b06c)
+---
 
+#### Linux Scans
+*Side-by-side Scan Comparison - Left Unauthenticated | Right Authenticated*
+![Linux Scan Comparison](https://github.com/user-attachments/assets/6f51d3cb-458d-4e89-bc88-5fd78d192a0c)
+*View the full reports: [Unauthenticated Scan Report](https://drive.google.com/file/d/16T7GnWTkRMlNvM2DEQT-VIrzYOE3wP4w/view?usp=sharing) | [Authenticated Scan Report](https://drive.google.com/file/d/1T8OJixQrp7bT34uAIII9PuwVZk1RMi2o/view?usp=sharing)*
 
-![Linux Scan Comparison](URL_to_your_Linux_comparison_image)
-*A side-by-side comparison of Linux scan results.*
+---
+### Conclusion
+
+The conclusion is simple: you can't protect what you can't see.
+
+An unauthenticated scan is like walking around a house to check for open doors (open ports). In contrast, an authenticated scan is like having the keys to go inside, where you can find the real dangers, like a stove left on (an exploitable service) or a recalled smoke detector (outdated software).
+
+Relying on the outside view alone is a security risk. To make smart decisions, you need the full story that only credentialed scanning provides.
