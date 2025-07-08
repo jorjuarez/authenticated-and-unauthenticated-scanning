@@ -60,7 +60,7 @@ To conduct this comparison, a controlled test environment was established using 
         # Permit root login via SSH and restart the SSH service
         sudo sed -i 's/^PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
         sudo systemctl restart sshd
-  
+        ```
 ---
 
 ### Results & Analysis
