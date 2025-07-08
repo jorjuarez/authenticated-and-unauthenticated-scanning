@@ -86,14 +86,14 @@ Similarly, while no high-severity vulnerabilities were found on the Linux machin
 
 ---
 
-#### Windows Scans
+#### Windows Scan Results
 *Side-by-side Scan Comparison - Left Unauthenticated | Right Authenticated*
 ![Windows Scan Comparison](https://github.com/user-attachments/assets/06af40ed-4ccb-47a3-bada-2c2d450aa0b0)
 *View the full reports: [Unauthenticated Scan Report](https://drive.google.com/file/d/1NLzpGQK0H7FJZQLtWCoNuWQJFUWpQUEj/view?usp=sharing) | [Authenticated Scan Report](https://drive.google.com/file/d/1GyB9r4LvCUBFlevMH9nsPWb3DgXb6IVt/view?usp=sharing)*
 
 ---
 
-#### Linux Scans
+#### Linux Scan Results
 *Side-by-side Scan Comparison - Left Unauthenticated | Right Authenticated*
 ![Linux Scan Comparison](https://github.com/user-attachments/assets/6f51d3cb-458d-4e89-bc88-5fd78d192a0c)
 *View the full reports: [Unauthenticated Scan Report](https://drive.google.com/file/d/16T7GnWTkRMlNvM2DEQT-VIrzYOE3wP4w/view?usp=sharing) | [Authenticated Scan Report](https://drive.google.com/file/d/1T8OJixQrp7bT34uAIII9PuwVZk1RMi2o/view?usp=sharing)*
