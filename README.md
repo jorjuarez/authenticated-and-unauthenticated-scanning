@@ -16,6 +16,7 @@ _**Unauthenticated Scan:**_ A scan performed without credentials, assessing the 
     * **Risk Prioritization:** Triaging findings based on technical severity and business context.
 
 * **Automation & Scripting**
+    * **PowerShell:** Scripting automated remediation for system hardening and configuration changes.
     * **BASH:** Scripting for Linux environment configuration and remediation.
 
 * **Cloud & Infrastructure**
